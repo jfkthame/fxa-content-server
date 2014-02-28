@@ -25,6 +25,6 @@ install:
   - grunt po2json
 # build task will perform lint
   - grunt build:travis
-  - grunt serverproc:dist &
+  - grunt serveronly:dist &
 # now run the tests!
 script: npm run-script test-server && npm run-script test-remote
