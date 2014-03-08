@@ -37,6 +37,15 @@ a.no-underline {
   text-decoration: none;
 }
 
+button,
+input,
+select,
+textarea {
+   font-family: $default-font-family;
+}
+
+
+
 noscript {
   color: $error-text-color;
   display: block;
