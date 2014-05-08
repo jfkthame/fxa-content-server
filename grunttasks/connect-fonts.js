@@ -1,0 +1,43 @@
+/* This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
+
+// task to take care of generating connect-fonts CSS and copying font files.
+
+// Locale specific font css are created @app/styles/localized/{{ locale }}.css
+// fonts care copied from npm packages into app/fonts
+
+module.exports = function (grunt) {
+  'use strict';
+
+  var config = require('../server/lib/configuration');
+
+  var fontPacks = [
+    'connect-fonts-clearsans',
+    'connect-fonts-firasans'
+  ];
+
+  grunt.config('connect_fonts', {
+    dist: {
+      options: {
+        fontPacks: fontPacks,
+        fontNames: [
+          'clearsans-regular',
+          'firasans-regular',
+          'firasans-light'
+        ],
+        languages: config.get('i18n.supportedLanguages'),
+        dest: '<%= yeoman.app %>/styles/localized'
+      }
+    }
+  });
+
+  grunt.config('connect_fonts_copy', {
+    dist: {
+      options: {
+        fontPacks: fontPacks,
+        dest: '<%= yeoman.app %>/fonts'
+      }
+    }
+  });
+};
