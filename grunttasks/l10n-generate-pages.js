@@ -3,13 +3,14 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 // grunt task to create a copy of each static page for each locale.
-// Any `{{ lang }}` tags will be replaced with the language. This is
+// Any `{{ locale }}` tags will be replaced with the locale. This is
 // used to create a per-locale template with locale specific resources.
 
 module.exports = function (grunt) {
   'use strict';
 
   var path = require('path');
+  var i18n = require('i18n-abide');
 
   var templateSrc;
   var templateDest;
@@ -27,22 +28,25 @@ module.exports = function (grunt) {
   });
 
   function generatePagesForLanguage(language) {
-    var destRoot = path.join(templateDest, language);
+    // items on disk are stored by locale, not language.
+    var locale = i18n.localeFrom(language);
+    var destRoot = path.join(templateDest, locale);
 
     grunt.file.recurse(templateSrc,
                     function (srcPath, rootDir, subDir, fileName) {
+
       var destPath = path.join(destRoot, (subDir || ''), fileName);
-      generatePage(srcPath, destPath, language);
+      generatePage(srcPath, destPath, locale);
     });
   }
 
-  function generatePage(srcPath, destPath, language) {
+  function generatePage(srcPath, destPath, locale) {
     grunt.log.writeln('generating `%s`', destPath);
 
     grunt.file.copy(srcPath, destPath, {
       process: function (contents, path) {
-        // replace any `{{ lang }}` tags with the language.
-        return contents.replace(/{{\s*lang\s*}}/g, language);
+        // replace any `{{ locale }}` tags with the locale.
+        return contents.replace(/{{\s*locale\s*}}/g, locale);
       }
     });
   }

@@ -61,7 +61,7 @@ function makeApp() {
   app.use(i18n);
 
   // render the correct template for the locale.
-  app.use(localizedRender);
+  app.use(localizedRender({ i18n: i18n }));
 
   app.use(helmet.xframe('deny'));
   app.use(helmet.iexss());

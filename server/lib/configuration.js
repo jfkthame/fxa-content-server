@@ -204,5 +204,9 @@ if (supportedLanguages.indexOf(defaultLang) === -1) {
   throw new Error('Configuration error: defaultLang (' + defaultLang + ') is missing from supportedLanguages');
 }
 
+var areDistResources = conf.get('static_directory') === 'dist';
+conf.set('are_dist_resources', areDistResources);
+
 // validate the configuration based on the above specification
 conf.validate();
+

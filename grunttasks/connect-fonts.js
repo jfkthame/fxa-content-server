@@ -10,6 +10,8 @@
 module.exports = function (grunt) {
   'use strict';
 
+  var i18n = require('i18n-abide');
+
   var fontPacks = [
     'connect-fonts-clearsans',
     'connect-fonts-firasans'
@@ -26,8 +28,13 @@ module.exports = function (grunt) {
       options: {
         fontPacks: fontPacks,
         fontNames: fontNamesNeeded,
+        // languages will be configured in configure_connect_fonts
         languages: [],
-        dest: '<%= yeoman.app %>/styles/localized'
+        dest: '<%= yeoman.app %>/styles/fonts',
+        destFileName: function (root, language) {
+          // items on disk are stored by locale, not language.
+          return root + i18n.localeFrom(language) + '.css';
+        }
       }
     }
   });
