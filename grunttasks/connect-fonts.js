@@ -4,12 +4,13 @@
 
 // task to take care of generating connect-fonts CSS and copying font files.
 
-// Locale specific font css are created @app/styles/localized/{{ locale }}.css
+// Locale specific font css are created `app/styles/fonts/<locale>.css`
 // fonts care copied from npm packages into app/fonts
 
 module.exports = function (grunt) {
   'use strict';
 
+  var path = require('path');
   var i18n = require('i18n-abide');
 
   var fontPacks = [
@@ -33,7 +34,7 @@ module.exports = function (grunt) {
         dest: '<%= yeoman.app %>/styles/fonts',
         destFileName: function (root, language) {
           // items on disk are stored by locale, not language.
-          return root + i18n.localeFrom(language) + '.css';
+          return path.join(root, i18n.localeFrom(language) + '.css');
         }
       }
     }

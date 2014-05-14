@@ -15,21 +15,22 @@
 
 'use strict';
 
+var path = require('path');
 var config = require('./configuration');
 var useLocalizedTemplates = config.get('are_dist_resources');
 
 module.exports = function (config) {
   var i18n = config.i18n;
 
-  function getLocalizedTemplateLocation(req, templateName) {
-    return i18n.normalizeLocale(req.locale) + '/' + templateName;
+  function getLocalizedTemplatePath(req, templateName) {
+    return path.join(i18n.normalizeLocale(req.locale), templateName);
   }
 
   return function (req, res, next) {
     if (useLocalizedTemplates) {
       var _render = res.render;
       res.render = function (_template, args) {
-        var template = getLocalizedTemplateLocation(req, _template);
+        var template = getLocalizedTemplatePath(req, _template);
         return _render.call(res, template, args);
       };
     }
