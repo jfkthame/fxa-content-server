@@ -8,17 +8,18 @@ module.exports = function (grunt) {
   grunt.registerTask('build', [
     'lint',
     'clean:dist',
+    'selectconfig:dist',
     'l10n-generate-pages',
     // l10n-generate-pages needs to be run before useminPrepare to seed
     // the list of resources to minimize. Generated pages are placed into
     // `server/templates/pages/dist` where they will be post-processed
     // with requirejs and usemin
     'useminPrepare',
-    'selectconfig:dist',
     'l10n-create-json',
     'l10n-generate-tos-pp:dist',
     'requirejs',
     'css',
+    'configure_connect_fonts',
     'connect_fonts',
     'concurrent:dist',
     'concat',

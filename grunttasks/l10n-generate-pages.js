@@ -9,13 +9,16 @@
 module.exports = function (grunt) {
   'use strict';
 
-  var config = require('../server/lib/configuration');
-  var supportedLanguages = config.get('i18n.supportedLanguages');
+  var path = require('path');
+
   var templateSrc;
   var templateDest;
 
   grunt.registerTask('l10n-generate-pages',
-      'Generate all the pages', function () {
+      'Generate localized versions of the static pages', function () {
+
+    // server config is set in the selectconfig task
+    var supportedLanguages = grunt.config.get('server.i18n.supportedLanguages');
 
     templateSrc = grunt.config.get('yeoman.page_template_src');
     templateDest = grunt.config.get('yeoman.page_template_dist');
@@ -24,11 +27,11 @@ module.exports = function (grunt) {
   });
 
   function generatePagesForLanguage(language) {
-    var destRoot = templateDest + '/' + language + '/';
+    var destRoot = path.join(templateDest, language);
 
     grunt.file.recurse(templateSrc,
                     function (srcPath, rootDir, subDir, fileName) {
-      var destPath = destRoot + (subDir || '') + fileName;
+      var destPath = path.join(destRoot, (subDir || ''), fileName);
       generatePage(srcPath, destPath, language);
     });
   }
