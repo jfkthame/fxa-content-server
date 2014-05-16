@@ -40,12 +40,13 @@ module.exports = function (grunt) {
     }
   });
 
-  grunt.task.registerTask('configure_connect_fonts', 'configure connect fonts based on the currently selected config', function () {
-    // server config is not available on startup and ie set in the
+  grunt.task.registerTask('configure_connect_fonts',
+      'configure connect fonts based on the currently selected config', function () {
+    // server config is not available on startup and is set in the
     // selectconfig task. configure_connect_fonts should be run after
     // selectconfig and before connect_fonts.
-    grunt.config.set('connect_fonts.dist.options.languages',
-          [].concat(grunt.config.get('server.i18n.supportedLanguages')));
+    var supportedLanguages = grunt.config.get('server.i18n.supportedLanguages');
+    grunt.config.set('connect_fonts.dist.options.languages', supportedLanguages);
   });
 
   grunt.config('connect_fonts_copy', {

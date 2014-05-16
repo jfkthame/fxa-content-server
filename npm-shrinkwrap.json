@@ -2385,9 +2385,9 @@
       }
     },
     "grunt-connect-fonts": {
-      "version": "0.0.2",
-      "from": "grunt-connect-fonts@0.0.2",
-      "resolved": "https://registry.npmjs.org/grunt-connect-fonts/-/grunt-connect-fonts-0.0.2.tgz",
+      "version": "0.0.3",
+      "from": "grunt-connect-fonts@0.0.3",
+      "resolved": "https://registry.npmjs.org/grunt-connect-fonts/-/grunt-connect-fonts-0.0.3.tgz",
       "dependencies": {
         "connect-fonts": {
           "version": "2.0.1",
